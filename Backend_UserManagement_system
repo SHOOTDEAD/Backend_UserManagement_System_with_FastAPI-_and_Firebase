@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "3e7ec91e-d360-4110-93dc-d568e92002ef",
+		"name": "Backend usermanagement system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26791195",
+		"_collection_link": "https://winter-zodiac-318348.postman.co/workspace/New-Team-Workspace~3f9eb3b4-924f-4f86-8235-2dde3df356a8/collection/26791195-3e7ec91e-d360-4110-93dc-d568e92002ef?action=share&source=collection_link&creator=26791195"
+	},
+	"item": [
+		{
+			"name": "Best-case scenarios",
+			"item": [
+				{
+					"name": "UserCreation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"    pm.expect(jsonData.message).to.equal(\"User created successfully\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"pp34@example.com\",\n  \"password\": \"@2Astring\",\n  \"full_name\": \"string\",\n  \"username\": \"stringrocks\"\n}\n"
+						},
+						"url": "{{url}}/Create_user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response body contains 'Firebase Auth token'\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Firebase Auth token\");",
+									"});",
+									"pm.test(\"JSON response contains the 'Firebase Auth token' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"Firebase Auth token\");",
+									"});",
+									"pm.test(\"The 'Firebase Auth token' property is a valid JWT token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var authToken = jsonData[\"Firebase Auth token\"];",
+									"    var jwtPattern = /^[A-Za-z0-9-_]+.[A-Za-z0-9-_]+.[A-Za-z0-9-_]+$/;",
+									"    pm.expect(authToken).to.match(jwtPattern, \"The 'Firebase Auth token' is a valid JWT token\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"pp34@example.com\",\n    \"password\": \"@2Astring\"\n}"
+						},
+						"url": "{{url}}/Login"
+					},
+					"response": []
+				},
+				{
+					"name": "Get user information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"JSON response contains the 'created_at' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"created_at\");",
+									"});",
+									"pm.test(\"JSON response contains the 'full_name' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"full_name\");",
+									"});",
+									"pm.test(\"JSON response contains the 'email' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"email\");",
+									"});",
+									"pm.test(\"JSON response contains the 'username' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"username\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/User_info?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User_info"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"    pm.expect(jsonData.message).to.equal(\"User Info updated successfully\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"abc\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/User_info?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User_info"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset_password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"    pm.expect(jsonData.message).to.equal(\"password changed successfully\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\":\"string@A2\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/Reset_password?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Reset_password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"    pm.expect(jsonData.message).to.equal(\"User Deleted\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Delete_User?email=pp34@example.com&password=string@A2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Delete_User"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "string@A2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This part contains all endpoints with valid input through the process of usercreation,loging the user,get user information,update user information,delete user and user information\n\nNote:\n\nIf the Usercreation endpoint is hit twice with out deleting the user it throws error\n\nWithout hitting the Usercreation endpoint other endpoints wont work"
+		},
+		{
+			"name": "Worst-case scenarios",
+			"item": [
+				{
+					"name": "UserCreation-duplicate_email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(403);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Email already exists\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"pp34@example.com\",\n  \"password\": \"@2Astring\",\n  \"full_name\": \"string\",\n  \"username\": \"stringrock\"\n}\n"
+						},
+						"url": "{{url}}/Create_user"
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreation-duplicate_username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(403);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Username already exists\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"pp345@example.com\",\n  \"password\": \"@2Astring\",\n  \"full_name\": \"string\",\n  \"username\": \"string123456\"\n}\n"
+						},
+						"url": "http://127.0.0.1:8000/Create_user"
+					},
+					"response": []
+				},
+				{
+					"name": "UserCreation-invalid_password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(400);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Weak password provided. Password must be at least 8 characters long and contain a mix of upper and lower case letters and digits.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"pp34@example.com\",\n  \"password\": \"string\",\n  \"full_name\": \"string\",\n  \"username\": \"string123456\"\n}\n"
+						},
+						"url": "http://127.0.0.1:8000/Create_user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login-invalid_credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(401);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Invalid login credentials\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"pp3456adsasdas@example.com\",\n    \"password\": \"@2Astring\"\n}"
+						},
+						"url": "{{url}}/Login"
+					},
+					"response": []
+				},
+				{
+					"name": "Update user information-email_username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(403);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Username already exists\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"string1256\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/User_info?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User_info"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user information-duplicate_email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(403);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Email already exists\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"pp345@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/User_info?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"User_info"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset_password-invalid_password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"status_code\");",
+									"    pm.expect(jsonData.status_code).to.equal(400);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"detail\");",
+									"    pm.expect(jsonData.detail).to.equal(\"Weak password provided. Password must be at least 8 characters long and contain a mix of upper and lower case letters and digits.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\":\"string\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/Reset_password?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Reset_password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Check if the response message is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"    pm.expect(jsonData.message).to.equal(\"User Deleted\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/Delete_User?email=pp34@example.com&password=@2Astring",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Delete_User"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "pp34@example.com"
+								},
+								{
+									"key": "password",
+									"value": "@2Astring"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This part contains endpoints with invalid input data's causing exceptions",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var url = pm.collectionVariables.get(\"url\");",
+							"pm.sendRequest({",
+							"    url: url+'/Create_user',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'Accept':'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            email: \"pp34@example.com\",",
+							"            password: \"@2Astring\",",
+							"            full_name: \"string\",",
+							"            username: \"string1256\"",
+							"        })",
+							"    }",
+							"})",
+							"pm.sendRequest({",
+							"    url: url+'/Create_user',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json',",
+							"        'Accept':'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            email: \"pp345@example.com\",",
+							"            password: \"@2Astring\",",
+							"            full_name: \"string\",",
+							"            username: \"string1256\"",
+							"        })",
+							"    }",
+							"})",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		}
+	]
+}
