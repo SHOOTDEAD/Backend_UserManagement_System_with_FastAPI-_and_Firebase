@@ -11,7 +11,7 @@ from firebase import (
     Reset_password,
 )
 from middleware import rate_limit
-
+from paths import firebasesdk_file_path,API_KEY,DatabaseUrl
 app = FastAPI()
 
 use_limit = 100  # no of request permitted
