@@ -1,8 +1,11 @@
 # Backend_UserManagement_System_with_FastAPI-_and_Firebase
 # User Management System with FastAPI, Firebase, and Python Stamps
-![Python Logo](https://www.python.org/static/community_logos/python-logo.png)
-![Firebase Logo](https://firebase.google.com/images/brand-guidelines/logo-logomark.png)
-![FastAPI Logo](https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png)
+<p align="center">
+  <img src="https://www.python.org/static/community_logos/python-logo.png" width="150" height="150">
+  <img src="https://firebase.google.com/images/brand-guidelines/logo-logomark.png" width="150" height="150">
+  <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" width="150" height="150">
+</p>
+
 ## Introduction
 
 Welcome to the User Management System! This project is a web application built with FastAPI, Firebase for authentication, and Python Stamps for database interactions. It provides a set of RESTful API endpoints for user registration, user information retrieval, user information update, user deletion, and password reset.
