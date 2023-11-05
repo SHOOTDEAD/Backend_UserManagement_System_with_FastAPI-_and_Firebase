@@ -6,17 +6,16 @@ from datetime import datetime
 import requests
 import json
 import re
-
-api_key = "Your api key"
+from paths import firebasesdk_file_path,API_KEY,DatabaseUrl
 
 cred_obj = firebase_admin.credentials.Certificate(
-    "Your firebase-adminsdk file path"
+    firebasesdk_file_path
 )
 
 app = firebase_admin.initialize_app(
     cred_obj,
     {
-        "databaseURL": "Your database url"
+        "databaseURL": DatabaseUrl
     },
 )
 
@@ -76,7 +75,7 @@ def login(email, password):
     """
 
     request_ref = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key={0}".format(
-        api_key
+        API_KEY
     )
     headers = {"content-type": "application/json; charset=UTF-8"}
     data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
