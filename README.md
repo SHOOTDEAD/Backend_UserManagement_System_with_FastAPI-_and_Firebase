@@ -1,7 +1,7 @@
 # Backend_UserManagement_System_with_FastAPI-_and_Firebase
 # User Management System with FastAPI, Firebase, and Python Stamps
 <p>
-  <img src="https://www.python.org/static/community_logos/python-logo.png" width="350" height="350">
+  <img src="https://www.python.org/static/community_logos/python-logo.png" width="300" height="350">
   <img src="https://firebase.google.com/images/brand-guidelines/logo-logomark.png" width="350" height="350">
   <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" width="350" height="350">
 </p>
