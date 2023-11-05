@@ -8,29 +8,29 @@
 
 ## Introduction
 
-Welcome to the User Management System! This project is a web application built with FastAPI, Firebase for authentication, and Python Stamps for database interactions. It provides a set of RESTful API endpoints for user registration, user information retrieval, user information update, user deletion, and password reset.
+Welcome to the User Management System! This project is a API built with FastAPI and Firebase for authentication and for database interactions. It provides a set of RESTful API endpoints for user registration, user information retrieval, user information update, user deletion, and password reset.
 
 ## Installation
 
-To set up this project on your local machine, follow these steps:
+### Windows:
 
 1. **Clone the repository:**
 
-    ```shell
-    git clone https://github.com/yourusername/user-management-system.git
-    cd user-management-system
+    ```powershell
+    git clone https://github.com/SHOOTDEAD/Backend_UserManagement_System_with_FastAPI-_and_Firebase.git
+    cd Backend_UserManagement_System_with_FastAPI-_and_Firebase
     ```
 
 2. **Create a virtual environment (optional but recommended):**
 
-    ```shell
+    ```powershell
     python -m venv venv
-    source venv/bin/activate  # On Windows, use venv\Scripts\activate
+    venv\Scripts\activate
     ```
 
 3. **Install the required dependencies:**
 
-    ```shell
+    ```powershell
     pip install -r requirements.txt
     ```
 
@@ -38,17 +38,60 @@ To set up this project on your local machine, follow these steps:
 
     - Create a Firebase project on the Firebase Console (https://console.firebase.google.com/).
     - Set up authentication methods (e.g., email/password) and generate a Firebase Admin SDK private key JSON file.
-    - Rename the Firebase Admin SDK private key JSON file to `firebase_credentials.json` and place it in the root directory of the project.
+    - Place that JSON file in the project director
+    - Generate API key
+    - Copy DatabaseUrl
 
-5. **Configuration:**
+5. **Path:**
 
-    - Edit the `config.py` file to configure your Firebase project settings.
+    - Edit the `paths.js` file to configure your Firebase_file_path,API_KEY,DatabaseUrl.
 
 6. **Run the application:**
 
-    ```shell
+    ```powershell
     uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     ```
+
+### Linux (Ubuntu/Debian-based systems):
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/SHOOTDEAD/Backend_UserManagement_System_with_FastAPI-_and_Firebase.git
+    cd Backend_UserManagement_System_with_FastAPI-_and_Firebase
+    ```
+
+2. **Create a virtual environment (optional but recommended):**
+
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3. **Install the required dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. **Configure Firebase:**
+
+    - Create a Firebase project on the Firebase Console (https://console.firebase.google.com/).
+    - Set up authentication methods (e.g., email/password) and generate a Firebase Admin SDK private key JSON file.
+    - Place that JSON file in the project director
+    - Generate API key
+    - Copy DatabaseUrl
+
+5. **Path:**
+
+    - Edit the `paths.js` file to configure your Firebase_file_path,API_KEY,DatabaseUrl.
+
+6. **Run the application:**
+
+    ```bash
+    uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ```
+
 
 The User Management System should now be running locally. You can access it at `http://localhost:8000`.
 
@@ -56,45 +99,44 @@ The User Management System should now be running locally. You can access it at `
 
 ### User Registration
 
-- **Endpoint:** `/register`
+- **Endpoint:** `/Create_user`
 - **Method:** `POST`
-- **Description:** Register a new user.
-- **Request body:** JSON containing user details (e.g., email and password).
+- **Description:** Register a new user in firebase and store its information in firestore.
+- **Request body:** JSON containing user details (email,password,full_name.username).
+
+### Login
+
+- **Endpoint:** `/Login`
+- **Method:** `POST`
+- **Description:** Authenticate user information and logs user in .
+
 
 ### User Information Retrieval
 
-- **Endpoint:** `/user/{user_id}`
+- **Endpoint:** `/User_info`
 - **Method:** `GET`
-- **Description:** Retrieve user information by user ID.
+- **Description:** Retrieve user information by user credentials.
 
 ### User Information Update
 
-- **Endpoint:** `/user/{user_id}`
+- **Endpoint:** `/User_info`
 - **Method:** `PUT`
 - **Description:** Update user information by user ID.
-- **Request body:** JSON containing updated user information.
+- **Request body:** JSON containing updated user credentials.
 
 ### User Deletion
 
-- **Endpoint:** `/user/{user_id}`
+- **Endpoint:** `/Delete_User`
 - **Method:** `DELETE`
-- **Description:** Delete a user by user ID.
+- **Description:** Delete a user by user credentials.
 
 ### Password Reset
 
-- **Endpoint:** `/reset-password`
+- **Endpoint:** `/Reset_password`
 - **Method:** `POST`
 - **Description:** Reset a user's password.
-- **Request body:** JSON containing user email for password reset.
-
-## Contributing
-
-If you would like to contribute to this project, please follow our [contribution guidelines](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Request body:** JSON containing password reset.
 
 ## Acknowledgments
 
-- Thanks to the FastAPI, Firebase, and Python Stamps communities for their great libraries and tools.
+- Thanks to the FastAPI, Firebase communities for their great libraries and tools.
